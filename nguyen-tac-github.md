@@ -58,3 +58,39 @@ Do quy trình đẩy code trực tiếp rất nhanh, để không bị Conflict 
 - **Tuyệt đối không đẩy trực tiếp lên `main`**: Nhánh `main` đã được thiết lập bảo vệ (Branch Protection) trên GitHub. Hành động đẩy code trực tiếp (`git push origin main`) sẽ bị từ chối. Mọi thay đổi bắt buộc qua Pull Request.
 - **Quyền Review Code**: Pull Request (PR) phải được tạo từ nhánh của bạn (`dev-nguoiA` hoặc `dev-nguoiB`) và hướng vào `main`. PR phải được thành viên còn lại **Approve** (phê duyệt) thì mới được phép Merge.
 - **Merge Code xong phải Pull**: Luôn nhớ sau khi Pull Request được merge trên GitHub, mỗi người phải chuyển về nhánh `main` và chạy `git pull origin main` ở máy cá nhân để đồng bộ code mới nhất, trước khi tiếp tục code tính năng mới.
+
+## 5. Xử lý khi lỡ code trên nhánh main
+
+Nếu bạn lỡ sửa code khi đang đứng ở nhánh `main` (mà chưa kịp tạo nhánh mới), cách xử lý sẽ phụ thuộc vào việc bạn đã gõ lệnh `git commit` hay chưa:
+
+### Trường hợp 1: Mới chỉ sửa file, CHƯA chạy lệnh git commit
+Chỉ cần "cất tạm" phần code vừa sửa đi, chuyển sang nhánh cá nhân (ví dụ `dev-nghiep` hoặc `dev-tuyen`), rồi "lôi" phần code đó ra để commit.
+
+```bash
+git stash                 # Cất tạm phần code bạn vừa sửa vào bộ nhớ tạm
+git checkout dev-nghiep   # Chuyển sang nhánh cá nhân (tự thay bằng tên nhánh của bạn)
+git stash pop             # Kéo phần code đã cất tạm ra nhánh này
+```
+
+Bây giờ code đã an toàn ở nhánh cá nhân, hãy lưu và đẩy lên như bình thường:
+```bash
+git add .
+git commit -m "Lưu lại code vừa sửa"
+git push origin dev-nghiep
+```
+
+### Trường hợp 2: ĐÃ LỠ CHẠY lệnh git commit trên nhánh main
+Lúc này phần code đã được đóng gói thành lịch sử trên nhánh `main`. Bạn cần "gỡ" gói commit đó ra thành dạng chưa commit, rồi mang sang nhánh cá nhân:
+
+```bash
+git reset --soft HEAD~1   # Gỡ commit vừa tạo ra nhưng VẪN GIỮ NGUYÊN code đã sửa
+git stash                 # Cất tạm code
+git checkout dev-nghiep   # Chuyển sang nhánh cá nhân
+git stash pop             # Lấy code ra
+```
+
+Giờ thì bạn commit lại và đẩy lên:
+```bash
+git commit -m "Lưu lại code vừa sửa"
+git push origin dev-nghiep
+```
