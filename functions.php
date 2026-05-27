@@ -50,7 +50,7 @@ function tecotec_group_scripts() {
     wp_enqueue_style( 'tecotec-style', get_stylesheet_uri(), array(), $version );
 
     // Custom CSS
-    wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/custom.css', array('tecotec-style'), $version );
+    wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/main.css', array('tecotec-style'), $version );
 
     // GSAP Core
     wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
@@ -60,6 +60,10 @@ function tecotec_group_scripts() {
 
     // Custom JS
     wp_enqueue_script( 'tecotec-custom-js', get_template_directory_uri() . '/assets/js/custom.js', array('jquery', 'gsap'), $version, true );
+
+    // Enqueue Timeline Assets
+    wp_enqueue_style( 'timeline-style', get_template_directory_uri() . '/assets/css/timeline.css', array(), $version );
+    wp_enqueue_script( 'timeline-js', get_template_directory_uri() . '/assets/js/timeline.js', array('jquery', 'gsap', 'gsap-scroll-trigger'), $version, true );
 }
 add_action( 'wp_enqueue_scripts', 'tecotec_group_scripts' );
 
