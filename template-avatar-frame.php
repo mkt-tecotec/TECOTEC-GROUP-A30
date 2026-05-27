@@ -8,6 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 get_header();
+get_template_part( 'components/microsite/a30-header' );
+
 ?>
 
 <main class="af-page">

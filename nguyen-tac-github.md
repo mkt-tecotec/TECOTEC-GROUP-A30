@@ -94,3 +94,83 @@ Giờ thì bạn commit lại và đẩy lên:
 git commit -m "Lưu lại code vừa sửa"
 git push origin dev-nghiep
 ```
+
+## 6. Đánh giá và xử lý xung đột (Conflict)
+
+Khi 2 người làm việc chung trên cùng một file (thậm chí cùng một dòng code) và gộp code, Git có thể báo lỗi **Conflict** do không biết phải giữ lại code của ai. Quá trình merge/pull lúc này sẽ bị tạm dừng.
+
+### Kịch bản 1: Conflict khi gộp nhánh của đồng đội vào nhánh cá nhân
+Giả sử nhánh `main` và nhánh cá nhân (VD: `dev-nghiep`) đang đồng bộ. Bạn đang làm việc ở nhánh `dev-nghiep`, bạn quyết định gộp (merge/pull) nhánh của đồng đội (VD: `dev-tuyen`) vào nhánh của bạn và bất ngờ gặp conflict.
+
+### Kịch bản 2: Conflict khi cập nhật code mới nhất từ nhánh `main` về máy
+Hàng ngày, trước khi code tính năng mới, bạn chạy lệnh `git pull origin main` (hoặc `git merge main`) để cập nhật code mới nhất từ `main` về nhánh cá nhân của mình. Nếu bạn và đồng đội vô tình sửa cùng một file (đồng đội đã merge code của họ lên `main` trước), conflict sẽ xảy ra.
+Lúc này:
+- `Current Change` (HEAD): Là đoạn code bạn đang làm dở trên nhánh của mình.
+- `Incoming Change` (main): Là đoạn code chuẩn đã được duyệt của đồng đội từ nhánh `main` đổ về.
+
+**Nguyên tắc vàng:** Code trên `main` luôn là code chuẩn (Production). Bạn **tuyệt đối không được vô tình xóa/làm hỏng code từ `main`**. Bạn phải chủ động điều chỉnh đoạn code đang làm dở của mình sao cho tương thích và khớp với code từ `main` đổ về.
+
+*(Các bước giải quyết an toàn cho cả 2 kịch bản đều giống hệt nhau như dưới đây)*
+
+### Các bước giải quyết an toàn:
+
+**Bước 1: Nhận diện và xem xét file bị conflict**
+Mở terminal và gõ lệnh:
+```bash
+git status
+```
+Git sẽ liệt kê các file bị conflict dưới phần `Unmerged paths` (có trạng thái là `both modified`).
+
+Mở các file bị conflict bằng Code Editor (ví dụ: VS Code). Git sẽ đánh dấu đoạn code bị xung đột bằng các ký tự đặc biệt:
+
+```php
+<<<<<<< HEAD (Current Change - Code hiện tại đang nằm trên máy bạn)
+echo "Đây là đoạn code của bạn vừa viết";
+=======
+echo "Đây là đoạn code của người kia viết và đã đẩy lên nhánh trước đó";
+>>>>>>> feature-branch-cua-nguoi-kia (Incoming Change - Code từ nhánh/người khác mang về)
+```
+- **Đọc hiểu logic:** Bạn cần đọc cả 2 đoạn code để hiểu mục đích của mình và mục đích của người kia.
+- **Trao đổi (Nếu cần):** Nếu đoạn code của người kia phức tạp và bạn không chắc chắn việc xóa nó đi có ảnh hưởng gì không, hãy nhắn tin/hỏi trực tiếp người đó ("Ê, chỗ hàm này ông thêm biến X làm gì vậy, tui đang muốn sửa nó thành Y có được không?").
+
+**Bước 2: Xử lý conflict (Resolve)**
+Trong VS Code, phía trên đoạn conflict thường sẽ có 4 nút bấm tiện lợi để bạn chọn:
+- **Accept Current Change:** Giữ lại toàn bộ code của BẠN, xóa code của người kia.
+- **Accept Incoming Change:** Giữ lại toàn bộ code của NGƯỜI KIA, xóa code của bạn (do bạn nhận ra code của họ đúng/mới hơn).
+- **Accept Both Changes:** Giữ lại code của CẢ 2 NGƯỜI (chúng sẽ nằm trên dưới nhau).
+- **Compare Changes:** Mở giao diện so sánh 2 bên để dễ nhìn.
+
+Nếu không dùng nút, bạn có thể sửa thủ công: Xóa các dòng đánh dấu của Git (`<<<<<<<`, `=======`, `>>>>>>>`) và tự viết/kết hợp lại thành một đoạn code cuối cùng chạy đúng logic của cả hai bên.
+
+**Bước 3: Chạy thử và kiểm tra (Rất quan trọng)**
+Đừng vội commit ngay sau khi resolve! Việc kết hợp code của 2 người có thể tạo ra một đoạn code không bị lỗi cú pháp nhưng lại sai về mặt logic (lỗi hiển thị, lỗi chức năng).
+- Hãy lưu file lại.
+- Bật trình duyệt/Terminal lên để chạy thử xem tính năng chỗ đó có hoạt động bình thường không.
+
+**Bước 4: Đánh dấu đã giải quyết (Mark as resolved) và Commit**
+Sau khi chắc chắn code đã chạy ngon lành, bạn báo cho Git biết là bạn đã xử lý xong và tạo commit:
+
+```bash
+git add <tên-file-đã-sửa>  # Hoặc git add . nếu đã sửa xong tất cả
+git commit -m "Merge conflict resolved ở chức năng XYZ"
+```
+*(Lưu ý: Nếu bạn đang trong quá trình `git merge`, đôi khi chỉ cần gõ `git commit` là Git sẽ tự động sinh ra một message mặc định cho việc merge).*
+
+**Bước 5: Đưa code lên nhánh main**
+Lúc này, nhánh cá nhân của bạn đã an toàn tuyệt đối: vừa có code của bạn, vừa có code của đồng đội (hoặc từ `main`) và hoàn toàn không còn rủi ro conflict. Bước tiếp theo phụ thuộc vào luật của repo:
+
+*   **Nếu repo có Branch Protection (Bắt buộc Code Review qua PR):**
+    1. Đẩy nhánh cá nhân lên GitHub: `git push origin nhánh-của-bạn`
+    2. Truy cập web GitHub, tạo Pull Request (PR) từ nhánh cá nhân hướng vào `main`. (GitHub sẽ báo "Able to merge").
+    3. Nhờ người kia Review và ấn nút **Merge Pull Request**.
+
+*   **Nếu repo cho phép gộp trực tiếp (Không ép PR):**
+    ```bash
+    git checkout main
+    git merge nhánh-của-bạn  # Git sẽ gộp thẳng vào (Fast-forward) mà không báo conflict nữa
+    git push origin main
+    ```
+
+💡 **Mẹo nhỏ để hạn chế conflict:**
+- Trước khi code tính năng mới, luôn nhớ gõ `git pull origin main` để cập nhật code mới nhất từ team về máy mình.
+- Chia nhỏ task và file, tránh việc 2 người cùng làm việc trên đúng 1 file trong thời gian quá dài.

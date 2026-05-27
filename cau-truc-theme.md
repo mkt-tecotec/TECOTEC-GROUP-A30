@@ -25,8 +25,6 @@ tecotec-group/
 │   ├── css/                # Các file CSS tự viết (như custom.css)
 │   └── js/                 # Các file JS tự viết (như custom.js, timeline.js)
 ├── components/             # Chứa các component UI dùng chung để tái sử dụng (hero, slider...)
-├── inc/                    # Chứa backend logic (helper functions...)
-│   └── package.php         # File tổng hợp load các backend module
 ├── archive.php             # Template hiển thị danh sách bài viết (Chuyên mục, Tag...)
 ├── footer.php              # Global Footer tĩnh của trang (gọi bằng get_footer())
 ├── front-page.php          # Template tĩnh cho Trang chủ
@@ -44,10 +42,10 @@ tecotec-group/
 
 Mọi khai báo CSS/JS và thư viện ngoài (Third-party libraries) đều phải được thực hiện trong file `functions.php` tại hook `wp_enqueue_scripts` (trong hàm `tecotec_group_scripts()`).
 
-### Khai báo file CSS/JS do team tự viết:
+### Quản lý file CSS/JS do team tự viết:
 
-- Viết CSS vào `assets/css/custom.css`
-- Viết JS vào `assets/js/custom.js`
+- **CSS Global & Biến (:root):** File `assets/css/main.css` (trước đây là custom.css) là nơi khai báo các biến toàn cục (như `--primary-color`, `--font-main`...) trong pseudo-class `:root`. Các file CSS component thành phần (ví dụ `assets/css/hero.css`, `assets/css/timeline.css`...) hoàn toàn có thể sử dụng lại các biến này, giúp đồng bộ màu sắc và font chữ trên toàn dự án.
+- **JS Global:** Viết JS vào `assets/js/custom.js`
 
 ### Thêm thư viện bên thứ 3 (Ví dụ GSAP, Swiper, Lenis...):
 
@@ -98,13 +96,11 @@ Trong WordPress, có 2 cách chính để bạn tạo và khai báo một giao d
    ```
 3. **Cách sử dụng:** Đăng nhập vào trang quản trị WordPress (Admin Dashboard) -> Vào mục **Trang (Pages)** -> **Thêm mới (Add New)** -> Nhìn sang cột bên phải (Sidebar) tìm mục **Page Attributes (Thuộc tính trang)** -> Tại ô **Template (Giao diện)**, bấm sổ xuống và chọn **Trang Liên Hệ**.
 
-### Cách 2: Tạo Page Template theo Slug (Đường dẫn)
+### Cách 2: Tạo Page Template theo Slug (Đường dẫn) - [KHÔNG KHUYÊN DÙNG]
 
-Cách này WordPress sẽ tự động map (nối) URL của trang với file PHP mà không cần Admin phải chọn tay trong menu dropdown.
+Cách này WordPress sẽ tự động map (nối) URL của trang với file PHP mà không cần Admin phải chọn tay trong menu dropdown. Tuy nhiên, **team sẽ KHÔNG tạo file theo cấu trúc `page-{slug}.php` nữa**. 
 
-1. Giả sử bạn tạo một trang trong Dashboard có tiêu đề là "Về chúng tôi", WordPress sẽ sinh ra đường dẫn (slug) là `ve-chung-toi`.
-2. Trong thư mục theme, bạn tạo một file theo đúng cú pháp `page-{slug}.php`. Ở ví dụ này là `page-ve-chung-toi.php`.
-3. Bên trong file này, bạn **KHÔNG CẦN** dòng comment khai báo `Template Name` ở đầu file. Chỉ cần bắt đầu bằng `get_header()`. Khi người dùng truy cập vào link `yoursite.com/ve-chung-toi/`, WordPress sẽ tự động load file này.
+Lý do: Việc fix cứng đường dẫn (slug) vào tên file sẽ làm mất đi tính linh hoạt (dynamic slug). Nếu quản trị viên muốn thay đổi đường dẫn tĩnh, giao diện trang sẽ bị lỗi. Thay vào đó, **luôn luôn sử dụng Cách 1 (Tạo Custom Template)** để quản trị viên có thể tùy ý cấu hình đường dẫn (dynamic slug) mà vẫn áp dụng đúng giao diện từ dropdown Template.
 
 ### Tái sử dụng Component (Best Practice)
 
@@ -183,6 +179,8 @@ Do đây là theme xây dựng theo tiêu chí **Performance-First** và không 
 
 ### 7.2. Tối ưu Tải tài nguyên (CSS / JavaScript)
 - **Chỉ tải khi cần thiết (Conditional Loading):** Trước khi `wp_enqueue_script` một thư viện nặng (ví dụ: Google Maps, Form Validator), hãy sử dụng câu lệnh điều kiện như `if ( is_page('lien-he') )` để thư viện chỉ được gọi trên trang liên hệ, giúp giảm kích thước trang ở những nơi khác.
+- **Tối ưu Cache (Cache Busting) với filemtime:** Thay vì khai báo version thủ công (ví dụ `'1.0.0'`) khi dùng `wp_enqueue_style` hoặc `wp_enqueue_script`, hãy sử dụng hàm `filemtime()` để lấy thời gian sửa đổi cuối cùng của file làm version. Việc này giúp trình duyệt tự động cập nhật file mới nhất mỗi khi code có thay đổi mà không cần đổi version bằng tay.
+  *Ví dụ:* `wp_enqueue_style('tecotec-main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));`
 - **Ngăn chặn Render-blocking:** Trừ thư viện jQuery (nếu dùng), với tất cả các script tự viết và GSAP, hãy khai báo tham số thứ 5 là `true` trong `wp_enqueue_script` để đẩy `<script>` xuống trước thẻ đóng `</body>`. Ngoài ra, nếu có thể hãy bổ sung thuộc tính `defer` bằng filter `script_loader_tag`.
 - **Sử dụng SVG thay vì PNG/JPG:** Đối với icon và các họa tiết (pattern) thiết kế giao diện, hãy ưu tiên sử dụng mã SVG nội tuyến (inline SVG) để tiết kiệm request và giữ chất lượng sắc nét ở mọi độ phân giải.
 

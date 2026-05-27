@@ -47,11 +47,17 @@ function tecotec_group_scripts() {
     wp_enqueue_style( 'tecotec-style', get_stylesheet_uri(), array(), $version );
     wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/custom.css', array( 'tecotec-style' ), $version );
 
-    if ( is_page( array( 'tao-avatar-30', 'hinh-nen-30' ) ) ) {
+    // Header CSS
+    wp_enqueue_style( 'tecotec-header-css', get_template_directory_uri() . '/assets/css/header.css', array( 'tecotec-style' ), $version );
+
+    // Main CSS
+    wp_enqueue_style( 'tecotec-main-css', get_template_directory_uri() . '/assets/css/main.css', array('tecotec-style'), $version );
+
+    if ( is_page_template( array( 'template-avatar-frame.php', 'template-wallpaper.php' ) ) ) {
         wp_enqueue_style( 'tecotec-microsite-a30', get_template_directory_uri() . '/assets/css/microsite-a30.css', array( 'tecotec-custom-css' ), $version );
     }
 
-    if ( is_page( 'tao-avatar-30' ) || is_page_template( 'template-avatar-frame.php' ) ) {
+    if ( is_page_template( 'template-avatar-frame.php' ) ) {
         wp_enqueue_style( 'tecotec-avatar-frame', get_template_directory_uri() . '/assets/css/avatar-frame.css', array( 'tecotec-microsite-a30' ), $version );
         wp_enqueue_script( 'tecotec-avatar-frame', get_template_directory_uri() . '/assets/js/avatar-frame.js', array(), $version, true );
         wp_localize_script( 'tecotec-avatar-frame', 'tecotecAvatar', array(
@@ -59,7 +65,7 @@ function tecotec_group_scripts() {
         ) );
     }
 
-    if ( is_page( 'hinh-nen-30' ) || is_page_template( 'template-wallpaper.php' ) ) {
+    if ( is_page_template( 'template-wallpaper.php' ) ) {
         wp_enqueue_style( 'tecotec-wallpaper', get_template_directory_uri() . '/assets/css/wallpaper.css', array( 'tecotec-microsite-a30' ), $version );
         wp_enqueue_script( 'tecotec-wallpaper', get_template_directory_uri() . '/assets/js/wallpaper.js', array(), $version, true );
         wp_localize_script( 'tecotec-wallpaper', 'tecotecWallpaper', array(
@@ -68,8 +74,15 @@ function tecotec_group_scripts() {
     }
 
     wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
-    wp_enqueue_script( 'gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array( 'gsap' ), '3.12.2', true );
-    wp_enqueue_script( 'tecotec-custom-js', get_template_directory_uri() . '/assets/js/custom.js', array( 'jquery', 'gsap' ), $version, true );
+    // GSAP ScrollTrigger
+    wp_enqueue_script( 'gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true );
+
+    // Custom JS
+    wp_enqueue_script( 'tecotec-custom-js', get_template_directory_uri() . '/assets/js/custom.js', array('jquery', 'gsap'), $version, true );
+
+    // Enqueue Timeline Assets
+    wp_enqueue_style( 'timeline-style', get_template_directory_uri() . '/assets/css/timeline.css', array(), $version );
+    wp_enqueue_script( 'timeline-js', get_template_directory_uri() . '/assets/js/timeline.js', array('jquery', 'gsap', 'gsap-scroll-trigger'), $version, true );
 }
 add_action( 'wp_enqueue_scripts', 'tecotec_group_scripts' );
 
@@ -78,13 +91,6 @@ add_action( 'wp_enqueue_scripts', 'tecotec_group_scripts' );
  */
 add_filter('use_block_editor_for_post', '__return_false', 10);
 add_filter('use_block_editor_for_post_type', '__return_false', 10);
-
-/**
- * Load Backend Logic
- */
-if ( file_exists( get_template_directory() . '/inc/package.php' ) ) {
-    require_once get_template_directory() . '/inc/package.php';
-}
 
 /**
  * Disable Gutenberg CSS
