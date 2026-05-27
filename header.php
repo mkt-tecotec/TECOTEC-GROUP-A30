@@ -63,6 +63,7 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+<?php if ( ! is_page( array( 'tao-avatar-30', 'hinh-nen-30' ) ) ) : ?>
 <header class="site-header">
     <div class="container">
         <a href="<?php echo home_url('/'); ?>" class="site-branding">TECOTEC GROUP</a>
@@ -76,3 +77,4 @@
         </nav>
     </div>
 </header>
+<?php endif; ?>

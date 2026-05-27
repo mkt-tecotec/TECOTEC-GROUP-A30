@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+<rect width="1920" height="1080" fill="#fff3e0"/>
+<path d="M0 216 L1440 0 L1920 0 L1920 432 L422 702 L0 518 Z" fill="#ff9900" opacity="0.16"/>
+<path d="M0 886 L806 648 L1920 842 L1920 1080 L0 1080 Z" fill="#146eb4" opacity="0.14"/>
+<text x="154" y="194" font-family="Geist, Inter, sans-serif" font-size="59" font-weight="700" fill="#ff9900">TECOTEC GROUP</text>
+<text x="154" y="292" font-family="Geist, Inter, sans-serif" font-size="118" font-weight="800" fill="#18181b">30 năm</text>
+<text x="154" y="367" font-family="Geist, Inter, sans-serif" font-size="32" font-weight="500" fill="#146eb4">DYNAMIC   1996–2026</text>
+<text x="154" y="950" font-family="Geist, Inter, sans-serif" font-size="23" font-weight="500" fill="#18181b" opacity="0.72">Dấu ấn 30 năm, Hành trình tiếp nối</text>
+</svg>

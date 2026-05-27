@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <!-- Outer background -->
+  <circle cx="540" cy="470" r="335" fill="none" stroke="#146eb4" stroke-width="18"/>
+  <!-- Bottom ribbon -->
+  <rect x="100" y="850" width="880" height="110" rx="6" fill="#146eb4"/>
+  <!-- Text -->
+  <text x="540" y="912" font-family="Geist, Inter, sans-serif" font-weight="700" font-size="26" fill="#ffffff" text-anchor="middle" letter-spacing="2">30 NĂM 1996–2026</text>
+  <text x="540" y="943" font-family="Geist, Inter, sans-serif" font-weight="400" font-size="18" fill="#ff9900" text-anchor="middle" letter-spacing="1">TECOTEC GROUP</text>
+  <!-- Corner accents -->
+  <rect x="60" y="60" width="80" height="8" fill="#ff9900"/>
+  <rect x="60" y="60" width="8" height="80" fill="#ff9900"/>
+  <rect x="940" y="60" width="80" height="8" fill="#ff9900"/>
+  <rect x="1012" y="60" width="8" height="80" fill="#ff9900"/>
+</svg>
