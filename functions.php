@@ -43,18 +43,34 @@ add_action( 'after_setup_theme', 'tecotec_group_setup' );
 function tecotec_group_scripts() {
     $version = '1.0.0';
 
-    // Google Fonts: Inter
-    wp_enqueue_style( 'tecotec-fonts', 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap', array(), null );
-
-    // Main Stylesheet
+    wp_enqueue_style( 'tecotec-fonts', 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;700&display=swap', array(), null );
     wp_enqueue_style( 'tecotec-style', get_stylesheet_uri(), array(), $version );
+    wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/custom.css', array( 'tecotec-style' ), $version );
 
     // Custom CSS
     wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/main.css', array('tecotec-style'), $version );
 
-    // GSAP Core
+    if ( is_page( array( 'tao-avatar-30', 'hinh-nen-30' ) ) ) {
+        wp_enqueue_style( 'tecotec-microsite-a30', get_template_directory_uri() . '/assets/css/microsite-a30.css', array( 'tecotec-custom-css' ), $version );
+    }
+
+    if ( is_page( 'tao-avatar-30' ) || is_page_template( 'template-avatar-frame.php' ) ) {
+        wp_enqueue_style( 'tecotec-avatar-frame', get_template_directory_uri() . '/assets/css/avatar-frame.css', array( 'tecotec-microsite-a30' ), $version );
+        wp_enqueue_script( 'tecotec-avatar-frame', get_template_directory_uri() . '/assets/js/avatar-frame.js', array(), $version, true );
+        wp_localize_script( 'tecotec-avatar-frame', 'tecotecAvatar', array(
+            'assetsBase' => get_template_directory_uri() . '/assets',
+        ) );
+    }
+
+    if ( is_page( 'hinh-nen-30' ) || is_page_template( 'template-wallpaper.php' ) ) {
+        wp_enqueue_style( 'tecotec-wallpaper', get_template_directory_uri() . '/assets/css/wallpaper.css', array( 'tecotec-microsite-a30' ), $version );
+        wp_enqueue_script( 'tecotec-wallpaper', get_template_directory_uri() . '/assets/js/wallpaper.js', array(), $version, true );
+        wp_localize_script( 'tecotec-wallpaper', 'tecotecWallpaper', array(
+            'assetsBase' => get_template_directory_uri() . '/assets',
+        ) );
+    }
+
     wp_enqueue_script( 'gsap', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js', array(), '3.12.2', true );
-    
     // GSAP ScrollTrigger
     wp_enqueue_script( 'gsap-scroll-trigger', 'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js', array('gsap'), '3.12.2', true );
 

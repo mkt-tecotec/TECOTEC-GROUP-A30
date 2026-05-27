@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1080" viewBox="0 0 1080 1080">
+  <!-- Simple ring -->
+  <circle cx="540" cy="470" r="335" fill="none" stroke="#146eb4" stroke-width="24"/>
+  <!-- Internal badge label -->
+  <rect x="330" y="760" width="420" height="60" rx="30" fill="#146eb4"/>
+  <text x="540" y="798" font-family="Geist, Inter, sans-serif" font-weight="600" font-size="20" fill="#ffffff" text-anchor="middle">CBNV TECOTEC GROUP</text>
+  <!-- Bottom bar -->
+  <rect x="60" y="970" width="960" height="60" rx="6" fill="#18181b"/>
+  <text x="540" y="1007" font-family="Geist, Inter, sans-serif" font-weight="700" font-size="22" fill="#ff9900" text-anchor="middle" letter-spacing="2">DẤU ẤN 30 NĂM</text>
+  <!-- Side stripes -->
+  <rect x="60" y="200" width="6" height="200" rx="3" fill="#ff9900"/>
+  <rect x="1014" y="200" width="6" height="200" rx="3" fill="#ff9900"/>
+</svg>

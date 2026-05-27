@@ -1,0 +1,297 @@
+.af-page {
+    --af-bg: var(--a30-bg);
+    --af-surface: var(--a30-surface);
+    --af-primary: var(--a30-primary);
+    --af-ink: var(--a30-ink);
+    --af-muted: var(--a30-muted);
+    --af-border: var(--a30-border);
+    --af-accent: var(--a30-accent);
+    --af-shadow: var(--a30-shadow);
+    background: var(--af-bg);
+    color: var(--af-ink);
+    padding: 3rem 0 4rem;
+}
+
+.af-tool {
+    margin-top: 1.5rem;
+}
+
+.af-benefits {
+    margin-top: 2.5rem;
+}
+
+.af-shell {
+    width: min(1200px, calc(100% - 3rem));
+    margin: 0 auto;
+}
+
+.af-hero {
+    padding: 5rem 0 2.5rem;
+}
+
+.af-kicker {
+    margin: 0;
+    color: var(--af-primary);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.af-title {
+    margin: 0.5rem 0 1rem;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+}
+
+.af-lead {
+    margin: 0;
+    max-width: 68ch;
+    color: var(--af-muted);
+    font-size: 1.05rem;
+}
+
+.af-tool-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 1.5rem;
+}
+
+.af-panel {
+    background: var(--af-surface);
+    border: 1px solid var(--af-border);
+    border-radius: 0.9rem;
+    padding: 1.5rem;
+    box-shadow: var(--af-shadow);
+}
+
+.af-panel--left {
+    align-self: start;
+}
+
+.af-panel--right {
+    background: linear-gradient(180deg, #ffffff 0%, #f7fafe 100%);
+}
+
+.af-upload-title,
+.af-panel-title,
+.af-frame-name,
+.af-btn,
+.af-benefit-item h3 {
+    font-family: 'Geist', sans-serif;
+}
+
+.af-kicker {
+    text-transform: uppercase;
+}
+
+.af-preview {
+    margin: 0;
+    border: 1px solid var(--af-border);
+    border-radius: 1rem;
+    padding: 1rem;
+    background: radial-gradient(circle at top, rgba(20, 110, 180, 0.08), rgba(255, 255, 255, 0.98));
+}
+
+.af-status {
+    margin: 0.9rem 0 0;
+    color: var(--af-muted);
+    font-size: 0.95rem;
+}
+
+.af-benefit-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1.1fr;
+    gap: 1rem;
+}
+
+.af-benefit-item {
+    background: #ffffff;
+    border: 1px solid var(--af-border);
+    border-radius: 0.75rem;
+    padding: 1.1rem;
+}
+
+.af-benefit-item:nth-child(1),
+.af-benefit-item:nth-child(4) {
+    background: #fbfcfe;
+}
+
+.af-panel-title {
+    margin: 0 0 1rem;
+    font-size: 1.1rem;
+}
+
+.af-upload {
+    display: grid;
+    gap: 0.4rem;
+    background: #fbfcfd;
+    border: 1px dashed var(--af-primary);
+    border-radius: 0.6rem;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1), background-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.af-upload--dragging {
+    transform: translateY(-1px);
+    border-color: var(--af-accent);
+    background: #fff7eb;
+}
+
+.af-upload:hover {
+    transform: translateY(-1px);
+}
+
+.af-upload:focus-within {
+    outline: 2px solid var(--af-accent);
+    outline-offset: 3px;
+}
+
+.af-upload input {
+    pointer-events: none;
+}
+
+.af-upload-title {
+    font-weight: 600;
+}
+
+.af-upload-meta {
+    color: var(--af-muted);
+    font-size: 0.92rem;
+}
+
+.af-upload-input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.af-frame {
+    margin: 1.25rem 0 0;
+    padding: 0;
+    border: 0;
+}
+
+.af-frame-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+.af-frame-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--af-border);
+    border-radius: 0.5rem;
+    padding: 0.8rem;
+    background: #ffffff;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1), border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.af-frame-item:has(input:checked) {
+    border-color: var(--af-accent);
+    transform: translateY(-1px);
+}
+
+.af-frame-item input {
+    position: absolute;
+    opacity: 0;
+}
+
+.af-frame-name {
+    font-weight: 600;
+    color: var(--af-ink);
+}
+
+#af-canvas {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 0.7rem;
+}
+
+.af-cta-row {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.af-btn {
+    border: 1px solid transparent;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.af-btn:hover {
+    transform: translateY(-1px);
+}
+
+.af-btn--primary {
+    background: var(--af-accent);
+    color: #18181b;
+}
+
+.af-btn--secondary {
+    background: #ffffff;
+    border-color: var(--af-primary);
+    color: var(--af-primary);
+}
+
+.af-benefits {
+    margin-top: 2rem;
+}
+
+.af-benefit-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.af-benefit-item {
+    background: #ffffff;
+    border: 1px solid var(--af-border);
+    border-radius: 0.6rem;
+    padding: 1rem;
+}
+
+.af-benefit-item h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1rem;
+}
+
+.af-benefit-item p {
+    margin: 0;
+    color: var(--af-muted);
+    font-size: 0.92rem;
+}
+
+@media (max-width: 900px) {
+    .af-tool-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .af-benefit-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .af-shell {
+        width: min(1200px, calc(100% - 1.5rem));
+    }
+
+    .af-hero {
+        padding-top: 3.5rem;
+    }
+
+    .af-frame-grid,
+    .af-benefit-grid {
+        grid-template-columns: 1fr;
+    }
+}
