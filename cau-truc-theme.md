@@ -44,10 +44,10 @@ tecotec-group/
 
 Mọi khai báo CSS/JS và thư viện ngoài (Third-party libraries) đều phải được thực hiện trong file `functions.php` tại hook `wp_enqueue_scripts` (trong hàm `tecotec_group_scripts()`).
 
-### Khai báo file CSS/JS do team tự viết:
+### Quản lý file CSS/JS do team tự viết:
 
-- Viết CSS vào `assets/css/custom.css`
-- Viết JS vào `assets/js/custom.js`
+- **CSS Global & Biến (:root):** File `assets/css/main.css` (trước đây là custom.css) là nơi khai báo các biến toàn cục (như `--primary-color`, `--font-main`...) trong pseudo-class `:root`. Các file CSS component thành phần (ví dụ `assets/css/hero.css`, `assets/css/timeline.css`...) hoàn toàn có thể sử dụng lại các biến này, giúp đồng bộ màu sắc và font chữ trên toàn dự án.
+- **JS Global:** Viết JS vào `assets/js/custom.js`
 
 ### Thêm thư viện bên thứ 3 (Ví dụ GSAP, Swiper, Lenis...):
 
@@ -183,6 +183,8 @@ Do đây là theme xây dựng theo tiêu chí **Performance-First** và không 
 
 ### 7.2. Tối ưu Tải tài nguyên (CSS / JavaScript)
 - **Chỉ tải khi cần thiết (Conditional Loading):** Trước khi `wp_enqueue_script` một thư viện nặng (ví dụ: Google Maps, Form Validator), hãy sử dụng câu lệnh điều kiện như `if ( is_page('lien-he') )` để thư viện chỉ được gọi trên trang liên hệ, giúp giảm kích thước trang ở những nơi khác.
+- **Tối ưu Cache (Cache Busting) với filemtime:** Thay vì khai báo version thủ công (ví dụ `'1.0.0'`) khi dùng `wp_enqueue_style` hoặc `wp_enqueue_script`, hãy sử dụng hàm `filemtime()` để lấy thời gian sửa đổi cuối cùng của file làm version. Việc này giúp trình duyệt tự động cập nhật file mới nhất mỗi khi code có thay đổi mà không cần đổi version bằng tay.
+  *Ví dụ:* `wp_enqueue_style('tecotec-main', get_template_directory_uri() . '/assets/css/main.css', array(), filemtime(get_template_directory() . '/assets/css/main.css'));`
 - **Ngăn chặn Render-blocking:** Trừ thư viện jQuery (nếu dùng), với tất cả các script tự viết và GSAP, hãy khai báo tham số thứ 5 là `true` trong `wp_enqueue_script` để đẩy `<script>` xuống trước thẻ đóng `</body>`. Ngoài ra, nếu có thể hãy bổ sung thuộc tính `defer` bằng filter `script_loader_tag`.
 - **Sử dụng SVG thay vì PNG/JPG:** Đối với icon và các họa tiết (pattern) thiết kế giao diện, hãy ưu tiên sử dụng mã SVG nội tuyến (inline SVG) để tiết kiệm request và giữ chất lượng sắc nét ở mọi độ phân giải.
 

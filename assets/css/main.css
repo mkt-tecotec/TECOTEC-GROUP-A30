@@ -1,9 +1,11 @@
-﻿/**
+/**
  * Custom Theme Styles - Homepage Premium
  */
 
 :root {
     --primary-color: #0b2c5f;
+    --dark-navy: #051a3a;
+    --dark-blue: #020c1b;
     --secondary-color: #fe7c03;
     --text-color: #ffffff;
     --white: #ffffff;
@@ -39,9 +41,7 @@ body {
     line-height: 1.6;
 }
 
-.container {
-    max-width: var(--container-width) !important;
-}
+
 
 /* --- Global Helpers --- */
 .text-gradient {

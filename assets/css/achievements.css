@@ -1,0 +1,731 @@
+/* Achievements Section */
+.hp-achievements {
+    background: radial-gradient(circle at 70% 20%, #061c3a 0%, #00172f 40%, #000d20 100%);
+    color: #F4F7FA;
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+    box-shadow: 0 -15px 40px rgba(0, 0, 0, 0.4);
+}
+
+/* Container & Top Area */
+.hp-achievements-container {
+    position: relative;
+    z-index: 2;
+}
+
+.hp-achievements-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    margin-bottom: 80px;
+}
+
+.hp-achievements-content {
+    flex: 1;
+    max-width: 650px;
+}
+
+.hp-achievements-tag {
+    color: #F36C00;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+.hp-achievements-title {
+    color: #F4F7FA;
+    font-size: 2.5rem;
+    line-height: 1.35;
+    font-weight: 700;
+    margin-bottom: 25px;
+}
+
+.hp-achievements-desc {
+    color: #B8C2D0;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 580px;
+}
+
+/* Graphic Area */
+.hp-achievements-visual {
+    position: relative;
+    width: 412px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* Dịch vào giữa màn hình một chút */
+    transform: translateX(-40px);
+}
+
+.hp-achievements-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Phát sáng mềm mại và bám sát theo hình dáng logo thay vì tạo 1 viền tròn cứng nhắc */
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.3)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
+    /* Phóng to logo mà không làm thay đổi box layout, tránh đẩy các phần dưới xuống */
+    transform: scale(1.4);
+}
+
+/* Cards Section */
+.hp-achievements-cards {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.achievement-card {
+    background: rgba(8, 31, 56, 0.85);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.achievement-card:hover {
+    background: rgba(8, 31, 56, 0.95);
+    border-color: rgba(243, 108, 0, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Icon */
+.ac-icon-wrapper {
+    width: 65px;
+    height: 65px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.9);
+    transition: all 0.3s ease;
+}
+
+.achievement-card:hover .ac-icon-wrapper {
+    border-color: #F36C00;
+    color: #F36C00;
+    background: rgba(243, 108, 0, 0.1);
+}
+
+.ac-icon-wrapper svg {
+    width: 30px;
+    height: 30px;
+}
+
+/* Number & Unit */
+.ac-number-wrap {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.ac-number-wrap.is-inline {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 8px;
+}
+
+.ac-number {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #F36C00;
+    line-height: 1;
+}
+
+.ac-unit {
+    font-size: 0.9rem;
+    color: #F4F7FA;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.ac-number-wrap.is-inline .ac-unit {
+    margin-top: 0;
+}
+
+/* Description */
+.ac-desc {
+    color: #B8C2D0;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .hp-achievements-cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .hp-achievements-top {
+        gap: 30px;
+    }
+    
+    .hp-achievements-visual {
+        width: 250px;
+        height: 250px;
+        transform: translateX(-20px);
+    }
+}
+
+@media (max-width: 992px) {
+    .hp-achievements-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .hp-achievements-desc {
+        margin: 0 auto;
+    }
+    
+    .hp-achievements-visual {
+        margin: 40px auto 0;
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .hp-achievements-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .hp-achievements-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hp-achievements-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .hp-achievements-visual {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+/* Awards Section */
+.hp-awards-section {
+    margin-top: 60px;
+    background: rgba(8, 31, 56, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 30px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+.hp-awards-content {
+    flex: 1;
+    max-width: 500px;
+}
+
+.hp-awards-title {
+    color: #F36C00;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.hp-awards-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #F36C00, transparent);
+}
+
+.hp-awards-desc {
+    color: #B8C2D0;
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.hp-awards-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border: 1px solid #F36C00;
+    border-radius: 6px;
+    color: #F36C00;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: transparent;
+}
+
+.hp-awards-btn:hover {
+    background: rgba(243, 108, 0, 0.1);
+    box-shadow: 0 0 15px rgba(243, 108, 0, 0.2);
+}
+
+.hp-awards-visual {
+    flex: 1;
+    max-width: 400px;
+    margin-right: 40px;
+}
+
+.hp-awards-card {
+    background: linear-gradient(180deg, rgba(8, 31, 56, 0.8) 0%, rgba(2, 13, 28, 0.9) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 0;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 2px 20px rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.hp-awards-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+}
+
+.hp-awards-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+}
+
+/* Responsive Awards Section */
+@media (max-width: 992px) {
+    .hp-awards-section {
+        flex-direction: column;
+        padding: 40px;
+        margin-top: 60px;
+    }
+    
+    .hp-awards-content {
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .hp-awards-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .hp-awards-visual {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .hp-awards-section {
+        padding: 30px 20px;
+    }
+}
+
+/* Future Commitments Section */
+.hp-commitments-section {
+    margin-top: 40px;
+    background: rgba(8, 31, 56, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 40px 50px;
+}
+
+.hp-commitments-section-title {
+    color: #F36C00;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+.hp-commitments-list {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 30px;
+}
+
+.hp-commitment-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.hp-commitment-icon {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: #F36C00;
+    position: relative;
+}
+
+.hp-commitment-icon::before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    right: 2px;
+    bottom: 2px;
+    border: 1.5px solid rgba(243, 108, 0, 0.6);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(243, 108, 0, 0.3);
+}
+
+.hp-commitment-icon svg {
+    width: 28px;
+    height: 28px;
+    position: relative;
+    z-index: 1;
+}
+
+.hp-commitment-content {
+    flex: 1;
+}
+
+.hp-commitment-title {
+    color: #F4F7FA;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.hp-commitment-desc {
+    color: #A0B0C6;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.hp-commitment-divider {
+    width: 1px;
+    height: 70px;
+    background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+    align-self: center;
+    margin-top: 10px;
+}
+
+/* Responsive Commitments */
+@media (max-width: 992px) {
+    .hp-commitments-list {
+        flex-direction: column;
+        gap: 40px;
+    }
+    
+    .hp-commitment-divider {
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+        margin: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hp-commitments-section {
+        padding: 30px 20px;
+    }
+    
+    .hp-commitment-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* ==========================================================================
+   People Section
+   ========================================================================== */
+.hp-people-section {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-top: 80px;
+}
+
+.hp-people-content {
+    flex: 1;
+    text-align: center;
+    max-width: 55%;
+}
+
+.hp-people-tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    color: #F36C00;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.hp-people-tag-line {
+    height: 1px;
+    width: 40px;
+    background-color: #F36C00;
+    opacity: 0.5;
+}
+
+.hp-people-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.hp-people-desc {
+    font-size: 15px;
+    color: #A0ABC0;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hp-people-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    text-align: left;
+}
+
+.hp-people-stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.hp-people-stat-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.hp-people-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-people-stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+}
+
+.hp-people-stat-label {
+    font-size: 12px;
+    color: #fff;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.hp-people-stat-desc {
+    font-size: 12px;
+    color: #A0ABC0;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.hp-people-visual {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 45%;
+}
+
+.hp-people-img-top img {
+    width: 100%;
+    height: 380px;
+    border-radius: 12px;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.hp-people-img-bottom {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.hp-people-img-bottom img {
+    width: 100%;
+    height: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+    aspect-ratio: 4/3;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive People */
+@media (max-width: 1200px) {
+    .hp-people-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px;
+    }
+}
+
+@media (max-width: 992px) {
+    .hp-people-section {
+        flex-direction: column;
+    }
+    .hp-people-content {
+        max-width: 100%;
+    }
+    .hp-people-visual {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+@media (max-width: 575px) {
+    .hp-people-stats {
+        grid-template-columns: 1fr;
+    }
+    .hp-people-img-bottom {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Core Values Section */
+.hp-core-values-section {
+    background-color: #071932;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 35px 40px;
+    margin-top: 50px;
+}
+
+.hp-core-values-title {
+    color: #F36C00;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center; /* User requested text-align: center */
+    text-align: center;
+}
+
+.hp-core-values-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background-color: #F36C00;
+    margin-right: 10px;
+}
+
+.hp-core-values-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    position: relative;
+}
+
+.hp-core-value-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+    position: relative;
+}
+
+.hp-core-value-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -15px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.hp-core-value-icon {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hp-core-value-icon svg {
+    width: 48px;
+    height: 48px;
+}
+
+.hp-core-value-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.hp-core-value-content h4 {
+    color: #FFFFFF;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+}
+
+.hp-core-value-content p {
+    color: #A0ABC0;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+/* Core Values Responsive */
+@media (max-width: 992px) {
+    .hp-core-values-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .hp-core-value-item:not(:last-child)::after {
+        right: 0;
+        left: 0;
+        bottom: -15px;
+        top: auto;
+        width: 100%;
+        height: 1px;
+    }
+}
