@@ -15,8 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
         </a>
 
         <nav class="a30-nav" aria-label="Điều hướng microsite A30">
-            <a href="<?php echo esc_url( home_url( '/tao-avatar-30/' ) ); ?>"<?php echo is_page( 'tao-avatar-30' ) ? ' aria-current="page"' : ''; ?>>Tạo avatar</a>
-            <a href="<?php echo esc_url( home_url( '/hinh-nen-30/' ) ); ?>"<?php echo is_page( 'hinh-nen-30' ) ? ' aria-current="page"' : ''; ?>>Tải hình nền</a>
+            <a href="<?php echo esc_url( home_url( '/tao-avatar-30/' ) ); ?>"<?php echo is_page_template( 'template-avatar-frame.php' ) ? ' aria-current="page"' : ''; ?>>Tạo avatar</a>
+            <a href="<?php echo esc_url( home_url( '/hinh-nen-30/' ) ); ?>"<?php echo is_page_template( 'template-wallpaper.php' ) ? ' aria-current="page"' : ''; ?>>Tải hình nền</a>
             <a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
         </nav>
 
