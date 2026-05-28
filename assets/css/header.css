@@ -170,35 +170,34 @@ a {
 .menu-toggle {
     display: flex;
     align-items: center;
-    gap: 12px;
+    justify-content: center;
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: none;
     color: #fff;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 8px;
+    border-radius: 8px;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: 600;
-    text-transform: uppercase;
     transition: all 0.3s ease;
-    letter-spacing: 0.5px;
-    font-family: inherit;
     z-index: 101;
 }
 
 .menu-toggle:hover,
 .menu-toggle.is-active {
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.6);
 }
 
 .hamburger-icon {
-    width: 24px;
-    height: 24px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     transition: transform 0.3s ease;
+}
+
+.hamburger-icon svg {
+    width: 100%;
+    height: 100%;
 }
 
 .menu-toggle.is-active .hamburger-icon {
