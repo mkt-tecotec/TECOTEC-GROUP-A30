@@ -46,7 +46,7 @@
         <div style="text-align: center; margin-top: 50px;">
             <?php 
             get_template_part('components/button/button', null, array(
-                'url' => home_url('/?cat=1'),
+                'url' => home_url('/category/su-kien-noi-bat/'),
                 'text' => 'Xem tất cả tin tức',
                 'inline_style' => 'padding: 14px 30px; font-size: 16px;'
             )); 

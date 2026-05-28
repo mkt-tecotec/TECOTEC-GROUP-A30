@@ -1,49 +1,62 @@
 <?php get_header(); ?>
 
-<section class="section section-light" style="min-height: 70vh;">
-    <div class="container">
-        <header style="text-align: center; margin-bottom: 60px;">
+<main class="post-archive-page">
+    <div class="post-archive-page__shell">
+        <header class="post-archive-page__header">
             <?php if ( is_category() || is_tag() || is_tax() ) : ?>
-                <h1 style="font-size: 48px; margin-bottom: 15px;"><?php echo get_the_archive_title(); ?></h1>
-                <div style="color: #666; font-size: 18px; max-width: 600px; margin: 0 auto;">
-                    <?php echo get_the_archive_description(); ?>
-                </div>
+                <h1><?php echo wp_kses_post( get_the_archive_title() ); ?></h1>
+                <?php if ( get_the_archive_description() ) : ?>
+                    <div class="post-archive-page__description">
+                        <?php echo wp_kses_post( get_the_archive_description() ); ?>
+                    </div>
+                <?php endif; ?>
             <?php else : ?>
-                <h1 style="font-size: 48px; margin-bottom: 15px;">Tin tức</h1>
-                <p style="color: #666; font-size: 18px; max-width: 600px; margin: 0 auto;">Cập nhật những thông tin mới nhất về hoạt động công ty, công nghệ mới và sự kiện nổi bật trong ngành.</p>
+                <h1>Tin tức</h1>
+                <p>Cập nhật những thông tin mới nhất về hoạt động công ty, công nghệ mới và sự kiện nổi bật trong ngành.</p>
             <?php endif; ?>
         </header>
 
-        <div class="grid">
-            <?php if ( have_posts() ) : ?>
+        <?php if ( have_posts() ) : ?>
+            <div class="post-archive-grid">
                 <?php while ( have_posts() ) : the_post(); ?>
-                    <div class="card">
-                        <?php 
-                        $thumb_url = has_post_thumbnail() ? get_the_post_thumbnail_url(get_the_ID(), 'large') : 'https://via.placeholder.com/600x400/ddd/999?text=No+Image'; 
-                        ?>
-                        <div class="card-img" style="background-image: url('<?php echo esc_url($thumb_url); ?>'); background-size: cover;"></div>
-                        <div class="card-content">
-                            <h3 class="card-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-                            <div class="card-excerpt"><?php the_excerpt(); ?></div>
-                            <a href="<?php the_permalink(); ?>" class="btn btn-outline" style="padding: 8px 20px; font-size: 14px;">Đọc tiếp</a>
+                    <article <?php post_class( 'post-card' ); ?>>
+                        <a class="post-card__media" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( get_the_title() ); ?>">
+                            <?php if ( has_post_thumbnail() ) : ?>
+                                <?php the_post_thumbnail( 'large', array( 'loading' => 'lazy' ) ); ?>
+                            <?php else : ?>
+                                <img src="https://dummyimage.com/800x500/f4f6f8/146eb4.jpg&amp;text=TECOTEC+A30" alt="TECOTEC A30" loading="lazy" />
+                            <?php endif; ?>
+                        </a>
+                        <div class="post-card__body">
+                            <?php
+                            $categories = get_the_category();
+                            if ( ! empty( $categories ) ) :
+                                ?>
+                                <a class="post-card__category" href="<?php echo esc_url( get_category_link( $categories[0]->term_id ) ); ?>">
+                                    <?php echo esc_html( $categories[0]->name ); ?>
+                                </a>
+                            <?php endif; ?>
+                            <h2 class="post-card__title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h2>
+                            <div class="post-card__excerpt"><?php the_excerpt(); ?></div>
+                            <a href="<?php the_permalink(); ?>" class="post-card__link">Đọc tiếp</a>
                         </div>
-                    </div>
+                    </article>
                 <?php endwhile; ?>
-            <?php else : ?>
-                <p style="text-align:center; width: 100%;">Hiện chưa có bài viết nào trong chuyên mục này.</p>
-            <?php endif; ?>
-        </div>
+            </div>
+        <?php else : ?>
+            <p class="post-archive-page__empty">Hiện chưa có bài viết nào trong chuyên mục này.</p>
+        <?php endif; ?>
 
-        <div style="display: flex; justify-content: center; margin-top: 60px; gap: 10px; align-items: center;" class="pagination-wrapper">
+        <div class="post-archive-page__pagination">
             <?php
             the_posts_pagination( array(
                 'mid_size'  => 2,
-                'prev_text' => '&laquo; Trước',
-                'next_text' => 'Tiếp &raquo;',
+                'prev_text' => 'Trước',
+                'next_text' => 'Tiếp',
             ) );
             ?>
         </div>
     </div>
-</section>
+</main>
 
 <?php get_footer(); ?>
