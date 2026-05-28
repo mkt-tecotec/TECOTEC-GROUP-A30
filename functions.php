@@ -45,16 +45,15 @@ function tecotec_group_scripts() {
 
     wp_enqueue_style( 'tecotec-fonts', 'https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700;800;900&family=Geist+Mono:wght@400;500;700&display=swap', array(), null );
     wp_enqueue_style( 'tecotec-style', get_stylesheet_uri(), array(), $version );
-    wp_enqueue_style( 'tecotec-custom-css', get_template_directory_uri() . '/assets/css/custom.css', array( 'tecotec-style' ), $version );
 
     // Header CSS
     wp_enqueue_style( 'tecotec-header-css', get_template_directory_uri() . '/assets/css/header.css', array( 'tecotec-style' ), $version );
 
     // Main CSS
-    wp_enqueue_style( 'tecotec-main-css', get_template_directory_uri() . '/assets/css/main.css', array('tecotec-style'), $version );
+    wp_enqueue_style( 'tecotec-main-css', get_template_directory_uri() . '/assets/css/main.css', array( 'tecotec-style' ), $version );
 
     if ( is_page_template( array( 'template-avatar-frame.php', 'template-wallpaper.php' ) ) ) {
-        wp_enqueue_style( 'tecotec-microsite-a30', get_template_directory_uri() . '/assets/css/microsite-a30.css', array( 'tecotec-custom-css' ), $version );
+        wp_enqueue_style( 'tecotec-microsite-a30', get_template_directory_uri() . '/assets/css/microsite-a30.css', array( 'tecotec-main-css' ), $version );
     }
 
     if ( is_page_template( 'template-avatar-frame.php' ) ) {
@@ -101,3 +100,20 @@ function tecotec_remove_wp_block_library_css(){
     wp_dequeue_style( 'wc-block-style' ); // Remove WooCommerce block CSS
 }
 add_action( 'wp_enqueue_scripts', 'tecotec_remove_wp_block_library_css', 100 );
+
+if ( file_exists( get_template_directory() . '/inc/sample-posts.php' ) ) {
+    require_once get_template_directory() . '/inc/sample-posts.php';
+}
+
+// Temporary trigger to import dummy data
+add_action( 'init', function() {
+    if ( isset( $_GET['import_dummy'] ) && $_GET['import_dummy'] === '1' ) {
+        if ( function_exists( 'tecotec_a30_import_sample_posts' ) ) {
+            $results = tecotec_a30_import_sample_posts();
+            echo '<h1>Import Complete!</h1>';
+            echo '<pre>' . print_r( $results, true ) . '</pre>';
+            echo '<a href="' . home_url('/') . '">Quay lại trang chủ</a>';
+            exit;
+        }
+    }
+} );

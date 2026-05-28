@@ -38,7 +38,9 @@
                         <a href="#history">HÀNH TRÌNH 30 NĂM</a>
                         <a href="#achievements">THÀNH TỰU</a>
                         <a href="#people">CON NGƯỜI TECOTEC</a>
-                        <a href="<?php echo home_url('/?cat=1'); ?>">TIN TỨC & SỰ KIỆN</a>
+                        <a href="<?php echo esc_url(home_url('/category/su-kien-noi-bat/')); ?>">TIN TỨC & SỰ KIỆN</a>
+                        <a href="<?php echo esc_url(home_url('/tao-khung-30-nam/')); ?>">DẤU ẤN CÁ NHÂN</a>
+                        <a href="<?php echo esc_url(home_url('/hinh-nen-30-nam/')); ?>">HÌNH NỀN 30 NĂM</a>
                     </nav>
                 </div>
             </div>
