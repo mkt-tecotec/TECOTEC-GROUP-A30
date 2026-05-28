@@ -315,6 +315,9 @@ $achievements_data = [
 
 <?php get_template_part('components/homepage/gallery'); ?>
 
+<?php get_template_part('components/homepage/news'); ?>
+
+
 <!-- Floating Anniversary Logo -->
 <div class="hp-floating-logo" id="floatingLogo">
     <a href="<?php echo home_url('/'); ?>">
@@ -367,8 +370,8 @@ $achievements_data = [
 
         if (floatingLogo) {
             window.addEventListener('scroll', function () {
-                // Hiển thị logo khi cuộn qua 500px (khoảng chiều cao của hero banner)
-                if (window.scrollY > 120) {
+                // Hiển thị logo khi cuộn qua 100vh
+                if (window.scrollY > window.innerHeight) {
                     floatingLogo.classList.add('is-visible');
                 } else {
                     floatingLogo.classList.remove('is-visible');
