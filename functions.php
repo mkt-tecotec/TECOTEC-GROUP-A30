@@ -104,3 +104,16 @@ add_action( 'wp_enqueue_scripts', 'tecotec_remove_wp_block_library_css', 100 );
 if ( file_exists( get_template_directory() . '/inc/sample-posts.php' ) ) {
     require_once get_template_directory() . '/inc/sample-posts.php';
 }
+
+// Temporary trigger to import dummy data
+add_action( 'init', function() {
+    if ( isset( $_GET['import_dummy'] ) && $_GET['import_dummy'] === '1' ) {
+        if ( function_exists( 'tecotec_a30_import_sample_posts' ) ) {
+            $results = tecotec_a30_import_sample_posts();
+            echo '<h1>Import Complete!</h1>';
+            echo '<pre>' . print_r( $results, true ) . '</pre>';
+            echo '<a href="' . home_url('/') . '">Quay lại trang chủ</a>';
+            exit;
+        }
+    }
+} );

@@ -2,7 +2,7 @@
 
 <?php get_template_part('components/homepage/hero'); ?>
 
-<!-- <?php get_template_part('components/homepage/timeline'); ?> -->
+<?php get_template_part('components/homepage/timeline'); ?>
 
 <!-- Section 3: Achievements -->
 <?php
@@ -254,10 +254,14 @@ $achievements_data = [
             <div class="hp-core-values-grid">
                 <div class="hp-core-value-item">
                     <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                             <circle cx="12" cy="12" r="10"></circle>
                             <circle cx="12" cy="12" r="6"></circle>
-                            <path d="M12 2v4"></path><path d="M12 18v4"></path><path d="M2 12h4"></path><path d="M18 12h4"></path>
+                            <path d="M12 2v4"></path>
+                            <path d="M12 18v4"></path>
+                            <path d="M2 12h4"></path>
+                            <path d="M18 12h4"></path>
                             <path d="M12 8v4h4"></path>
                         </svg>
                     </div>
@@ -266,11 +270,16 @@ $achievements_data = [
                         <p>Theo đuổi sự chính xác trong từng chi tiết, từng giải pháp và từng cam kết.</p>
                     </div>
                 </div>
-                
+
                 <div class="hp-core-value-item">
                     <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-7.3 7.3a1 1 0 0 1-1.41-1.41l7.3-7.3a7 7 0 0 1 9.9 0l3.89 3.89a3 3 0 0 1 0 4.24H22a1 1 0 0 1-1.41 1.41l-2.83-2.83"/><path d="m11 17-5.5-5.5a1 1 0 1 0-3 3l2.83 2.83a1 1 0 0 1-1.41 1.41l-2.83-2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3L8 22"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m11 17 2 2a1 1 0 1 0 3-3" />
+                            <path
+                                d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-7.3 7.3a1 1 0 0 1-1.41-1.41l7.3-7.3a7 7 0 0 1 9.9 0l3.89 3.89a3 3 0 0 1 0 4.24H22a1 1 0 0 1-1.41 1.41l-2.83-2.83" />
+                            <path
+                                d="m11 17-5.5-5.5a1 1 0 1 0-3 3l2.83 2.83a1 1 0 0 1-1.41 1.41l-2.83-2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3l2.83 2.83a1 1 0 1 0-3 3L8 22" />
                         </svg>
                     </div>
                     <div class="hp-core-value-content">
@@ -281,10 +290,17 @@ $achievements_data = [
 
                 <div class="hp-core-value-item">
                     <div class="hp-core-value-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5"/>
-                            <path d="M9 18h6"/><path d="M10 22h4"/>
-                            <path d="m12 2 1 2"/><path d="m20 10 2 1"/><path d="m2 10 2-1"/><path d="m20 4-2 2"/><path d="m4 4 2 2"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                            stroke="#F36C00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .2 2.2 1.5 3.5.7.9 1.2 1.5 1.5 2.5" />
+                            <path d="M9 18h6" />
+                            <path d="M10 22h4" />
+                            <path d="m12 2 1 2" />
+                            <path d="m20 10 2 1" />
+                            <path d="m2 10 2-1" />
+                            <path d="m20 4-2 2" />
+                            <path d="m4 4 2 2" />
                         </svg>
                     </div>
                     <div class="hp-core-value-content">
@@ -297,8 +313,72 @@ $achievements_data = [
     </div>
 </section>
 
-<?php get_template_part('components/homepage/services'); ?>
+<?php get_template_part('components/homepage/gallery'); ?>
 
 <?php get_template_part('components/homepage/news'); ?>
+
+
+<!-- Floating Anniversary Logo -->
+<div class="hp-floating-logo" id="floatingLogo">
+    <a href="<?php echo home_url('/'); ?>">
+        <img src="<?php echo get_template_directory_uri(); ?>/assets/image/logo-ky-niem.svg" alt="30 Years TECOTEC">
+    </a>
+</div>
+
+<style>
+    .hp-floating-logo {
+        position: fixed;
+        top: 30px;
+        left: 30px;
+        z-index: 999;
+        width: 120px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.4s ease;
+    }
+
+    .hp-floating-logo.is-visible {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .hp-floating-logo img {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.15));
+        transition: transform 0.3s ease;
+    }
+
+    .hp-floating-logo:hover img {
+        transform: scale(1.05);
+    }
+
+    @media (max-width: 768px) {
+        .hp-floating-logo {
+            top: 20px;
+            left: 20px;
+            width: 90px;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var floatingLogo = document.getElementById('floatingLogo');
+
+        if (floatingLogo) {
+            window.addEventListener('scroll', function () {
+                // Hiển thị logo khi cuộn qua 100vh
+                if (window.scrollY > window.innerHeight) {
+                    floatingLogo.classList.add('is-visible');
+                } else {
+                    floatingLogo.classList.remove('is-visible');
+                }
+            });
+        }
+    });
+</script>
 
 <?php get_footer(); ?>
