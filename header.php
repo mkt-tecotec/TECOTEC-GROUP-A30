@@ -24,13 +24,23 @@
                             alt="30 Years TECOTEC">
                     </a>
                 </div>
-                <nav class="main-navigation">
-                    <a href="<?php echo home_url('/'); ?>" class="active">TRANG CHỦ</a>
-                    <a href="#history">HÀNH TRÌNH 30 NĂM</a>
-                    <a href="#achievements">THÀNH TỰU</a>
-                    <a href="#people">CON NGƯỜI TECOTEC</a>
-                    <a href="<?php echo home_url('/?cat=1'); ?>">TIN TỨC & SỰ KIỆN</a>
-                </nav>
+                <div class="header-right">
+                    <button class="menu-toggle" id="menu-toggle" aria-expanded="false">
+                        <span class="menu-toggle-text">HÀNH TRÌNH</span>
+                        <div class="hamburger-icon">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                    </button>
+                    <nav class="main-navigation" id="main-navigation">
+                        <a href="<?php echo home_url('/'); ?>" class="active">TRANG CHỦ</a>
+                        <a href="#history">HÀNH TRÌNH 30 NĂM</a>
+                        <a href="#achievements">THÀNH TỰU</a>
+                        <a href="#people">CON NGƯỜI TECOTEC</a>
+                        <a href="<?php echo home_url('/?cat=1'); ?>">TIN TỨC & SỰ KIỆN</a>
+                    </nav>
+                </div>
             </div>
         </header>
     <?php endif; ?>

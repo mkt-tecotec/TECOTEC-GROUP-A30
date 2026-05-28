@@ -1,0 +1,214 @@
+<?php
+/**
+ * Component: Homepage Gallery Section - 30 Years Journey
+ * Coded to match the new dark theme design (Thư viện ảnh qua các thời kỳ)
+ */
+
+$css_path = get_template_directory() . '/assets/css/gallery.css';
+$js_path = get_template_directory() . '/assets/js/gallery.js';
+
+wp_enqueue_style(
+    'tecotec-gallery',
+    get_template_directory_uri() . '/assets/css/gallery.css',
+    array(),
+    file_exists($css_path) ? filemtime($css_path) : '1.0.0'
+);
+
+wp_enqueue_script(
+    'tecotec-gallery-js',
+    get_template_directory_uri() . '/assets/js/gallery.js',
+    array('jquery'),
+    file_exists($js_path) ? filemtime($js_path) : '1.0.0',
+    true
+);
+
+// Gallery Data Periods (Matching the new timeline)
+$base_gallery_data = [
+    [
+        'label' => '1996–2003',
+        'folder' => '1996',
+        'title' => 'Thành lập Công ty Thiết bị Công nghệ tecotec',
+        'caption' => 'Đặt nền móng vững chắc cho hành trình 30 năm phát triển trong ngành đo lường và hiệu chuẩn.',
+    ],
+    [
+        'label' => '2004–2007',
+        'folder' => '2000',
+        'title' => 'Mở rộng thị phần & Trở thành đối tác chiến lược',
+        'caption' => 'Mở rộng thị phần cung cấp thiết bị đo lường chính xác và hiệu chuẩn tại khu vực phía Bắc, trở thành đối tác chiến lược của nhiều thương hiệu thiết bị công nghệ lớn trên toàn cầu.',
+    ],
+    [
+        'label' => '2008–2011',
+        'folder' => '2005',
+        'title' => 'Mở rộng quy mô & Khẳng định vị thế toàn quốc',
+        'caption' => 'Thành lập văn phòng đại diện tại Thành phố Hồ Chí Minh, chính thức phục vụ thị trường miền Nam và khẳng định vị thế nhà cung cấp giải pháp công nghệ kỹ thuật trên quy mô toàn quốc.',
+    ],
+    [
+        'label' => '2012–2015',
+        'folder' => '2010',
+        'title' => 'Ra mắt nền tảng thương mại số – Tái cấu trúc dịch vụ – Bắt đầu R&D',
+        'caption' => 'Chúng tôi ra mắt nền tảng thương mại số, mở rộng dịch vụ sang thị trường quốc tế và tái cấu trúc toàn diện hệ thống vận hành. Đồng thời, đầu tư mạnh mẽ cho nghiên cứu & phát triển, làm chủ công nghệ lõi để tạo nền tảng bứt phá trong giai đoạn tiếp theo.',
+    ],
+    [
+        'label' => '2016–2019',
+        'folder' => '2016',
+        'title' => 'Tái cấu trúc thành TECOTEC Group',
+        'caption' => 'Kỷ niệm 20 năm thành lập. Tái cấu trúc mô hình quản trị doanh nghiệp thành TECOTEC Group, định hướng phát triển đa ngành dựa trên nền tảng kỹ thuật và tích hợp hệ thống tự động hóa.',
+    ],
+    [
+        'label' => '2020–2022',
+        'folder' => '2020',
+        'title' => 'Chuyển đổi số toàn diện & Vượt qua thách thức',
+        'caption' => 'Chuyển đổi số toàn diện doanh nghiệp và nâng cấp hạ tầng công nghệ. Vượt qua thách thức đại dịch, đảm bảo chuỗi cung ứng dịch vụ kỹ thuật hoạt động liên tục phục vụ sản xuất công nghiệp.',
+    ],
+    [
+        'label' => '2023–nay',
+        'folder' => '2026',
+        'title' => 'Kỷ niệm 30 năm phát triển bền vững',
+        'caption' => 'Kỷ niệm mốc son 30 năm phát triển bền vững (1996 - 2026). TECOTEC Group tiếp tục đổi mới không ngừng, bứt phá trong kỷ nguyên số và tự hào là đối tác công nghệ đáng tin cậy.',
+    ]
+];
+
+// Fallback images for all periods if folders are missing/empty
+$default_fallbacks = [
+    get_template_directory_uri() . '/assets/image/con-nguoi.webp',
+    get_template_directory_uri() . '/assets/image/su-kien-da-bong.webp',
+    get_template_directory_uri() . '/assets/image/su-kien-goi-banh-chung.webp',
+    get_template_directory_uri() . '/assets/image/tat-nien-2026.webp',
+    get_template_directory_uri() . '/assets/image/con-nguoi.webp',
+    get_template_directory_uri() . '/assets/image/su-kien-da-bong.webp',
+    get_template_directory_uri() . '/assets/image/su-kien-goi-banh-chung.webp'
+];
+
+$gallery_data = [];
+$upload_dir = get_template_directory() . '/assets/image/gallery/';
+
+foreach ($base_gallery_data as $item) {
+    $folder = $item['folder'];
+    $year_dir = $upload_dir . $folder;
+    $images = [];
+
+    // Check if dynamic directory exists and contains images
+    if (is_dir($year_dir)) {
+        // Scan for common image extensions
+        $files = glob($year_dir . '/*.{jpg,jpeg,png,webp,gif,svg}', GLOB_BRACE);
+        if (!empty($files)) {
+            sort($files);
+            foreach ($files as $file) {
+                $filename = basename($file);
+                $images[] = get_template_directory_uri() . '/assets/image/gallery/' . $folder . '/' . $filename;
+            }
+        }
+    }
+
+    // Fallback if no images found in directory
+    if (empty($images)) {
+        $root_files = glob($upload_dir . '*.{jpg,jpeg,png,webp,gif,svg}', GLOB_BRACE);
+        if (!empty($root_files)) {
+            sort($root_files);
+            foreach ($root_files as $file) {
+                $images[] = get_template_directory_uri() . '/assets/image/gallery/' . basename($file);
+            }
+        } else {
+            $images = $default_fallbacks;
+        }
+    }
+
+    // Repeat images to ensure there are exactly 30 images per period
+    $display_images = [];
+    $count = count($images);
+    if ($count > 0) {
+        for ($i = 0; $i < 30; $i++) {
+            $display_images[] = $images[$i % $count];
+        }
+    }
+
+    $gallery_data[] = [
+        'label' => $item['label'],
+        'title' => $item['title'],
+        'caption' => $item['caption'],
+        'images' => $display_images
+    ];
+}
+?>
+
+<section class="hp-gallery">
+    <div class="container">
+        <!-- Section Header -->
+        <div class="hp-gallery-header">
+            <div class="hp-gallery-tag">
+                <span class="hp-gallery-tag-line"></span>
+                HÀNH TRÌNH PHÁT TRIỂN
+                <span class="hp-gallery-tag-line"></span>
+            </div>
+            <h2 class="hp-gallery-title">THƯ VIỆN ẢNH QUA CÁC THỜI KỲ</h2>
+            <p class="hp-gallery-desc">
+                Cùng nhìn lại những khoảnh khắc đáng nhớ, các cột mốc lịch sử và hoạt động tiêu biểu
+                đánh dấu sự trưởng thành và phát triển của đại gia đình TECOTEC Group từ 1996 đến nay.
+            </p>
+        </div>
+
+        <!-- Navigation Timeline Tabs with Arrows -->
+        <div class="hp-gallery-nav-wrapper">
+            <button class="hp-gallery-nav-arrow prev" aria-label="Previous">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 18l-6-6 6-6" />
+                </svg>
+            </button>
+            <div class="hp-gallery-nav">
+                <ul class="hp-gallery-tabs">
+                    <li class="hp-gallery-sliding-line" aria-hidden="true"></li>
+                    <?php foreach ($gallery_data as $index => $item): ?>
+                        <li class="hp-gallery-tab-item">
+                            <button class="hp-gallery-tab-btn <?php echo $index === 3 ? 'is-active' : ''; ?>"
+                                data-index="<?php echo $index; ?>">
+                                <span class="tab-year"><?php echo esc_html($item['label']); ?></span>
+                                <span class="tab-dot"></span>
+                            </button>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <button class="hp-gallery-nav-arrow next" aria-label="Next">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 18l6-6-6-6" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Panels Container -->
+        <div class="hp-gallery-panels">
+            <?php foreach ($gallery_data as $index => $item): ?>
+                <div class="hp-gallery-panel <?php echo $index === 3 ? 'is-active' : ''; ?>"
+                    data-index="<?php echo $index; ?>"
+                    style="<?php echo $index === 3 ? 'display: block;' : 'display: none;'; ?>">
+
+                    <div class="hp-gallery-panel-inner">
+                        <!-- Gallery Images (Masonry) -->
+
+                        <div class="hp-gallery-grid">
+                            <?php foreach ($item['images'] as $i => $img_src): ?>
+                                <div class="hp-gallery-img-wrapper img-<?php echo $i + 1; ?>">
+                                    <img src="<?php echo esc_url($img_src); ?>"
+                                        alt="TECOTEC Group <?php echo esc_attr($item['label']); ?> - Ảnh <?php echo $i + 1; ?>"
+                                        loading="lazy">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+
+    <!-- Popup / Lightbox Modal -->
+    <div class="hp-gallery-popup" id="hp-gallery-popup">
+        <div class="hp-gallery-popup-content">
+            <button class="hp-gallery-popup-close" id="hp-gallery-popup-close">&times;</button>
+            <img src="" alt="Popup Image" class="hp-gallery-popup-img" id="hp-gallery-popup-img">
+        </div>
+    </div>
+</section>
