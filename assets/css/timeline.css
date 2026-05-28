@@ -5,7 +5,7 @@
 #history {
     height: 600vh;
     position: relative;
-    background: var(--color-bg-dark, #0a1929);
+    background: radial-gradient(circle at 50% 50%, #061c3a 0%, #00172f 40%, #000d20 100%);
     color: #fff;
     margin-bottom: -100vh;
 }
