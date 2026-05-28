@@ -43,4 +43,26 @@
                 </div>
             </div>
         </header>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var menuToggle = document.getElementById('menu-toggle');
+                var mainNav = document.getElementById('main-navigation');
+
+                if (menuToggle && mainNav) {
+                    menuToggle.addEventListener('click', function (e) {
+                        e.stopPropagation();
+                        menuToggle.classList.toggle('is-active');
+                        mainNav.classList.toggle('is-active');
+                    });
+
+                    document.addEventListener('click', function (e) {
+                        if (!mainNav.contains(e.target) && !menuToggle.contains(e.target)) {
+                            menuToggle.classList.remove('is-active');
+                            mainNav.classList.remove('is-active');
+                        }
+                    });
+                }
+            });
+        </script>
     <?php endif; ?>
