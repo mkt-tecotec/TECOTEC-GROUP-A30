@@ -2,7 +2,7 @@
 
 <?php get_template_part('components/homepage/hero'); ?>
 
-<!-- <?php get_template_part('components/homepage/timeline'); ?> -->
+<?php get_template_part('components/homepage/timeline'); ?>
 
 <!-- Section 3: Achievements -->
 <?php

@@ -113,11 +113,11 @@ foreach ($base_gallery_data as $item) {
         }
     }
 
-    // Repeat images to ensure there are exactly 30 images per period
+    // Repeat images to ensure there are exactly 20 images per period
     $display_images = [];
     $count = count($images);
     if ($count > 0) {
-        for ($i = 0; $i < 30; $i++) {
+        for ($i = 0; $i < 20; $i++) {
             $display_images[] = $images[$i % $count];
         }
     }

@@ -142,7 +142,7 @@
 
 .tab-year {
     font-family: var(--font-body, 'Geist', sans-serif);
-    font-size: 0.9375rem;
+    font-size: 1.125rem;
     font-weight: 400;
     color: #94A3B8;
     transition: color 0.3s ease, font-weight 0.3s ease;
