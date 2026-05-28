@@ -29,7 +29,7 @@
                     <a href="#history">HÀNH TRÌNH 30 NĂM</a>
                     <a href="#achievements">THÀNH TỰU</a>
                     <a href="#people">CON NGƯỜI TECOTEC</a>
-                    <a href="<?php echo home_url('/?cat=1'); ?>">TIN TỨC & SỰ KIỆN</a>
+                    <a href="<?php echo esc_url( home_url( '/category/su-kien-noi-bat/' ) ); ?>">TIN TỨC & SỰ KIỆN</a>
                 </nav>
             </div>
         </header>
