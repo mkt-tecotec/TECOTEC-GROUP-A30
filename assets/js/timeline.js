@@ -20,15 +20,31 @@
 
   let lastRotation = 0;       // target rotation from scroll
   let smoothedRotation = 0;   // currently rendered rotation
-  let isSnapping = false;
-  let snapTimer = null;
   let lastAppliedIndex = -1;
-  let preventScrollSync = false;
 
   const years = Array.from(circle.querySelectorAll('.year-wrap'));
   const images = Array.from(section.querySelectorAll('.year-image'));
 
   const TOTAL_ROTATION = -STEP * (years.length - 1);
+
+  // Click vào năm/dấu chấm để cuộn tới năm đó
+  years.forEach((year, index) => {
+    year.addEventListener('click', () => {
+      const rect = section.getBoundingClientRect();
+      const sectionTop = window.scrollY + rect.top;
+      const stickyTravel = rect.height - window.innerHeight;
+      const scrollRange = stickyTravel - ROT_START_OFFSET - getRotEndOffset();
+
+      const progress = years.length > 1 ? index / (years.length - 1) : 0;
+      const targetScrollY = sectionTop + ROT_START_OFFSET + progress * scrollRange;
+
+      if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+        window.lenis.scrollTo(targetScrollY);
+      } else {
+        window.scrollTo({ top: targetScrollY, behavior: 'smooth' });
+      }
+    });
+  });
 
   function applyYearClasses(rotation) {
     const exactIndex = Math.abs(rotation / STEP);
@@ -62,9 +78,8 @@
     const progress = scrollRange > 0 ? scrollOffset / scrollRange : 0;
     const currentRotation = TOTAL_ROTATION * progress;
 
-    if (!isSnapping) {
-      lastRotation = currentRotation;
-    }
+    // Step to the nearest year exactly
+    lastRotation = Math.round(currentRotation / -STEP) * -STEP;
   }
 
   function smoothRender() {
@@ -74,61 +89,8 @@
     requestAnimationFrame(smoothRender);
   }
 
-  function snapToNearestYear() {
-    const rect = section.getBoundingClientRect();
-    const stickyTravel = rect.height - window.innerHeight;
-    const scrollRange = stickyTravel - ROT_START_OFFSET - getRotEndOffset();
-    const currentOffset = -rect.top - ROT_START_OFFSET;
-
-    // Chỉ snap khi đang ở trong vùng xoay (rotation zone)
-    if (currentOffset < 0 || currentOffset > scrollRange) return;
-
-    isSnapping = true;
-    const startRotation = smoothedRotation;
-    let targetRotation = Math.round(startRotation / -STEP) * -STEP;
-    // Clamp to valid range
-    targetRotation = Math.max(TOTAL_ROTATION, Math.min(0, targetRotation));
-
-    const duration = 800;
-    const t0 = performance.now();
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
-
-    function step(now) {
-      const t = Math.min((now - t0) / duration, 1);
-      const eased = easeOutCubic(t);
-      lastRotation = startRotation + (targetRotation - startRotation) * eased;
-      if (t < 1) {
-        requestAnimationFrame(step);
-      } else {
-        lastRotation = targetRotation;
-        smoothedRotation = targetRotation;
-        isSnapping = false;
-
-        // Sync window.scrollY tới vị trí khớp với targetRotation
-        // để wheel tick kế tiếp không kéo rotation lệch khỏi năm
-        const rect2 = section.getBoundingClientRect();
-        const stickyTravel2 = rect2.height - window.innerHeight;
-        const scrollRange2 = stickyTravel2 - ROT_START_OFFSET - getRotEndOffset();
-        const progress = TOTAL_ROTATION !== 0 ? targetRotation / TOTAL_ROTATION : 0;
-        const scrollOffset = progress * scrollRange2;
-        const scrollY = window.scrollY + rect2.top + ROT_START_OFFSET + scrollOffset;
-        preventScrollSync = true;
-        if (window.lenis && typeof window.lenis.scrollTo === 'function') {
-          window.lenis.scrollTo(scrollY, { immediate: true });
-        } else {
-          window.scrollTo({ top: scrollY, behavior: 'auto' });
-        }
-        requestAnimationFrame(() => { preventScrollSync = false; });
-      }
-    }
-    requestAnimationFrame(step);
-  }
-
   function onScroll() {
-    if (preventScrollSync) return;
     updateTimelineRotation();
-    if (snapTimer) clearTimeout(snapTimer);
-    snapTimer = setTimeout(snapToNearestYear, SNAP_DELAY);
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -152,15 +114,14 @@
           ease: "back.out(1.5)",
           scrollTrigger: {
             trigger: section,
-            start: "top 90%",
+            start: "top top",
             toggleActions: "play none none reverse"
           }
         }
       );
 
       // Zoom Out on Exit
-      gsap.fromTo(stageInner,
-        { scale: 1, opacity: 1 },
+      gsap.to(stageInner,
         {
           scale: 0.7,
           opacity: 0,
